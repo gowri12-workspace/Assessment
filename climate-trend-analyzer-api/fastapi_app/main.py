@@ -38,7 +38,8 @@ app.add_middleware(
 )
 
 # MongoDB Configuration
-MONGO_URL = "mongodb://admin:admin123@192.168.1.13:27017/master?authSource=admin"
+MONGO_URL = "mongodb+srv://admin:admin123@cluster0.3ark7ln.mongodb.net/"
+# "mongodb://admin:admin123@192.168.1.13:27017/master?authSource=admin"
 DB_NAME = "master"
 COLLECTION_NAME = "climate"  # Assuming a collection name
 REGION_COLLECTION_NAME = os.getenv("MASTER_DATA_COLLECTION", "city")
@@ -111,6 +112,9 @@ def filter_by_date(data, start, end):
     filtered["daily"] = {k: [v[i] for i in keep] for k, v in daily.items()}
     return filtered
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
 
 @app.get("/historicData/{city}/{latitude}/{longitude}/{hazardType}/{startDate}/{endDate}")
 async def get_historic_data(

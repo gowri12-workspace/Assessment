@@ -22,7 +22,7 @@ const FilterSidebar = observer(({}) => {
   const getFilteredDataFromApi = () => {
     climateStore.setFilter(filters)
     climateStore.setLoader(true)
-    fetch(`http://localhost:8000/historicData/${filters?.cityData?.city}/${filters?.cityData?.latitude}/${filters?.cityData?.longitude}/${climateStore.filters.hazardType}/${climateStore.filters.startDate}/${climateStore.filters.endDate}`)
+    fetch(`${process.env.REACT_APP_API_URL}/historicData/${filters?.cityData?.city}/${filters?.cityData?.latitude}/${filters?.cityData?.longitude}/${climateStore.filters.hazardType}/${climateStore.filters.startDate}/${climateStore.filters.endDate}`)
         .then((res) => res.json())
         .then((record) => {
           console.log("got response",record)

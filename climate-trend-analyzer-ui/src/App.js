@@ -22,11 +22,11 @@ const theme = createTheme({
 
 function App({}) {
   useEffect(() => {
-    fetch('http://localhost:8000/getRegion')
+    fetch(`${process.env.REACT_APP_API_URL}/getRegion`)
     .then((resp) => resp.json())
     .then((data) => {
       console.log("makindg")
-      fetch(`http://localhost:8000/historicData/${data[0]?.city}/${data[0]?.latitude}/${data[0]?.longitude}/${climateStore.filters.hazardType}/${climateStore.filters.startDate}/${climateStore.filters.endDate}`)
+      fetch(`${process.env.REACT_APP_API_URL}/historicData/${data[0]?.city}/${data[0]?.latitude}/${data[0]?.longitude}/${climateStore.filters.hazardType}/${climateStore.filters.startDate}/${climateStore.filters.endDate}`)
         .then((res) => res.json())
         .then((record) => {
           climateStore.setLoader(true)

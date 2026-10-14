@@ -24,24 +24,18 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-    "http://localhost:8080",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # MongoDB Configuration
-MONGO_URL = "mongodb+srv://admin:admin123@cluster0.3ark7ln.mongodb.net/"
-# "mongodb://admin:admin123@192.168.1.13:27017/master?authSource=admin"
-DB_NAME = "master"
-COLLECTION_NAME = "climate"  # Assuming a collection name
+MONGO_URL = os.getenv("MONGO_URL") 
+DB_NAME = os.getenv("DB_NAME") 
+COLLECTION_NAME = os.getenv("COLLECTION_NAME")  # Assuming a collection name
 REGION_COLLECTION_NAME = os.getenv("MASTER_DATA_COLLECTION", "city")
 
 client = MongoClient(MONGO_URL)

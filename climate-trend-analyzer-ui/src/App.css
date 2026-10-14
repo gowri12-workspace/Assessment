@@ -1,0 +1,68 @@
+.app-navbar.MuiAppBar-root { background: #fff; color: #191852; border-bottom: 1px solid #e2e9e5; }
+.navbar-toolbar.MuiToolbar-root { min-height: 80px; padding: 0 28px; gap: 8px; }
+.brand { display: flex; align-items: center; gap: 12px; color: #191852; text-decoration: none; font-size: 23px; font-weight: 750; line-height: 1.2; }
+.brand:hover { color: #3a24b6; }
+.ca-color { color: #3a24b6; }
+.brand-mark { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; background: #3a24b6; color: #fff; }
+.brand-accent { display: block; color: #3a24b6; font-size: 14px; margin-top: 3px; }
+.nav-overview { display: inline-block; padding: 29px 4px 25px; border-bottom: 3px solid #3a24b6; color: #3a24b6; text-decoration: none; font-weight: 600; font-size: 14px; }
+.workspace-avatar { flex-shrink: 0; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: #e9f2ee; color: #3a24b6; font-size: 12px !important; font-weight: 700 !important; }
+.app-layout { display: flex; min-height: calc(100vh - 80px); align-items: flex-start; }
+.filter-sidebar { width: 300px; flex: 0 0 300px; padding: 28px 24px; background: #fff; border-right: 1px solid #e2e9e5; min-height: calc(100vh - 80px); }
+.sidebar-description, .sidebar-note, .page-description { color: #697b74; font-size: 13px; }
+.filter-section-title { font-size: 10px; letter-spacing: 1.5px; font-weight: 700; color: #74867e; margin-bottom: 18px; }
+.filter-sidebar .form-label { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+.filter-sidebar .form-select, .filter-sidebar .form-control { font-size: 13px; min-height: 43px; border-color: #dce5df; border-radius: 7px; color: #344d42; background-color: #fcfdfc; }
+.filter-sidebar .form-select:focus, .filter-sidebar .form-control:focus { border-color: #3a24b6; box-shadow: 0 0 0 3px #3a24b620; }
+.filter-sidebar .MuiButton-root { padding: 10px 16px; }
+.sidebar-note { border-top: 1px solid #e2e9e5; margin-top: 32px; padding-top: 22px; font-size: 11px; }
+.sidebar-note p { margin: 8px 0 0; }
+.status-dot { display: inline-block; height: 6px; width: 6px; border-radius: 50%; background: #3a24b6; margin-right: 5px; }
+.main-content { min-width: 0; flex: 1; padding: 38px; scroll-margin-top: 100px; }
+.eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.7px; color: #74867e; margin-bottom: 20px; }
+.page-description { margin: 12px 0 0; font-size: 14px; }
+.selection-panel.MuiPaper-root { padding: 26px; border-color: #e2e9e5; }
+.scope-label { color: #74867e; font-size: 12px; margin-bottom: 8px; }
+.scope-value { font-weight: 600; font-size: 14px; margin-bottom: 0; overflow-wrap: anywhere; }
+.empty-panel.MuiPaper-root { margin-top: 24px; padding: 70px 24px; border: 1px dashed #d5e1da; text-align: center; background: linear-gradient(150deg, #fff, #f2f8f5); }
+.empty-icon { display: grid; place-items: center; width: 76px; height: 76px; margin: 0 auto 24px; background: #e5f1ea; border-radius: 22px; color: #3a24b6; }
+.empty-panel p { color: #697b74; max-width: 470px; margin: 16px auto 24px; line-height: 1.8; font-size: 14px; }
+.workspace-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: #74867e; font-size: 11px; margin-top: 28px; }
+.skip-link { position: fixed; top: -100px; left: 16px; z-index: 1500; padding: 12px 18px; background: #3a24b6; color: #fff; }
+.skip-link:focus { top: 8px; color: #fff; }
+
+.top-bar, .stat-box, .panel-box {
+  background: white;
+  padding: 3px;
+  border: #dee2e6;
+}
+.top-bar { padding: 1rem 0; }
+.top-bar__title { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 700; margin: 0; color: #12302b; }
+.top-bar__subtitle { margin: .25rem 0 0; color: #3a24b6 ; font-weight: 500; font-size: 1rem; }
+.stat-box {
+  background: #fff;
+  border: 1px solid #e6eae8;
+  border-radius: 14px;
+  padding: 1rem 1.25rem 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
+  height: 100%;
+}
+.stat-box__input {
+  border-radius: 10px;
+  padding: .6rem .9rem;
+}
+.stat-box__label {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #7a8581;
+  margin-bottom: .5rem;
+}
+.top-bar   { min-height: 56px; }
+.stat-box  { min-height: 80px; }
+.panel-box { min-height: 260px; }
+
+@media (min-width: 900px) { .filter-sidebar { position: sticky; top: 80px; max-height: calc(100vh - 80px); overflow-y: auto; } }
+@media (max-width: 899px) { .main-content { padding: 28px 20px; } .filter-sidebar { width: min(320px, 100vw); min-height: 100vh; } }
+@media (max-width: 599px) { .navbar-toolbar.MuiToolbar-root { padding: 0 16px; } .brand { font-size: 20px; gap: 9px; } .brand-accent { font-size: 12px; } .empty-panel.MuiPaper-root { padding: 42px 20px; } .selection-panel.MuiPaper-root { padding: 20px; } }

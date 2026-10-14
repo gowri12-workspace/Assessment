@@ -22,11 +22,12 @@ const Dashboard = observer(({  }) => {
 
   return (
      <main className="container-fluid py-3 px-3 px-lg-4">
-       {climateStore.loader && <Backdrop
-        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+       {(!climateStore.dashboardData || !climateStore.filters.cityData.city ) ? <Backdrop
+        sx={(theme) => ({ color: '#222020', zIndex: theme.zIndex.drawer + 1 })}   open={!climateStore.filters.cityData.city}
+
       >
-        <CircularProgress color="inherit" />
-      </Backdrop> }
+        <CircularProgress color="#0f0e0e" />
+      </Backdrop> : <>
     <section className="row g-3 mb-3">
      <div className="col-12">
         <header className="top-bar">
@@ -99,7 +100,7 @@ const Dashboard = observer(({  }) => {
       </div> }
 
     </section>
- 
+ </> }
   </main>
   )
 })

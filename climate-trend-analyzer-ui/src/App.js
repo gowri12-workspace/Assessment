@@ -25,15 +25,10 @@ function App({}) {
     fetch(`${process.env.REACT_APP_API_URL}/getRegion`)
     .then((resp) => resp.json())
     .then((data) => {
-      console.log("makindg")
       fetch(`${process.env.REACT_APP_API_URL}/historicData/${data[0]?.city}/${data[0]?.latitude}/${data[0]?.longitude}/${climateStore.filters.hazardType}/${climateStore.filters.startDate}/${climateStore.filters.endDate}`)
         .then((res) => res.json())
         .then((record) => {
-          climateStore.setLoader(true)
-          console.log("got response",record)
           climateStore.setDashboardData(record)
-          climateStore.setLoader(false)
-
         }).catch(err => console.log("Error occured"))
       climateStore.setCityList(data);
     }).catch(err => console.log("Error occured"))

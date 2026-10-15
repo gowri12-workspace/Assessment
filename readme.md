@@ -30,6 +30,7 @@ wind_gusts_10m_max - Highest duration of burst wind above 10m from ground level.
 Found the threshold gust value by calculating 95 percentile of the wind_gusts_10m_max and filtered value above threshold.
 
 Performed aggregation and grouping on top of the result.
+![alt text](image-1.png)
 
 *Calculating heat:*
 temperature_2m_max - Highest daily air temperature at 2m above ground level (°C).
@@ -37,6 +38,8 @@ temperature_2m_max - Highest daily air temperature at 2m above ground level (°C
 Found the threshold temperature by calculating the 90th percentile of temperature_2m_max for each calendar month over the baseline years (1990-2020), and filtered the days above it as hot days.
 
 Performed aggregation and grouping (hot days per month and year) on top of the result.
+
+![alt text](image.png)
 
 *Calculating heatwaves:*
 temperature_2m_max - Same daily maximum temperature, used with the hot day threshold above.
@@ -52,6 +55,7 @@ precipitation_hours - Number of hours with precipitation in a day.
 Marked a wet day when precipitation_sum was more than 1 mm. Found the heavy rain threshold by calculating the 95th percentile of precipitation_sum on wet days only, and filtered the days above it.
 
 Performed aggregation and grouping (wet days, total rainfall and heavy rain days per month and year) on top of the result.
+![alt text](image-2.png)
 
 *Calculating drought:*
 precipitation_sum - Total daily precipitation (mm).
@@ -59,6 +63,7 @@ precipitation_sum - Total daily precipitation (mm).
 Marked a dry day when precipitation_sum was 1 mm or less. Grouped consecutive dry days into dry spells, and treated spells of 14 days or more as drought days.
 
 Performed aggregation and grouping (number of long spells, drought days and longest spell per month and year) on top of the result.
+![alt text](image-3.png)
 
 *Loading historic data:*
 1. For the first, api makes call to external service and dump records to our db.

@@ -11,8 +11,8 @@ export default function HeatWave({ }) {
     return (
         <>  <h4 className='brand-accent p-3'>Heatwaves over the period</h4>
             { climateStore.dashboardData.heatwaves ?    
-                <div class="container" style={{ maxWidth: '600px', overflowY: 'scroll', maxHeight: '450px'}}>
-                <div class="vstack gap-4">
+                <div className="container" style={{ maxWidth: '600px', overflowY: 'scroll', maxHeight: '450px'}}>
+                <div className="vstack gap-4">
                         <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 300 }} aria-label="simple table">
                             <TableHead >

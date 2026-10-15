@@ -8,25 +8,15 @@ import { observer } from 'mobx-react-lite';
 
 const BarCharts = observer(({}) => {
 
-    useEffect(() => {
-            console.log(climateStore?.dashboardData)
-
-    }, [climateStore.dashboardData])
-
     const getSeriesData = () => {
-        console.log("logic")
         if(climateStore.filters.hazardType != '4') {
             return  Object.values(climateStore?.dashboardData?.days_per_year)
         } else {
-            console.log(climateStore?.dashboardData)
             let dryDays = []
             
             climateStore?.dashboardData?.long_dry_days_per_year?.forEach(element => {
                 dryDays.push(element?.dry_days)
             })
-
-            console.log(dryDays)
-
             return dryDays
         }
     }

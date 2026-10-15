@@ -32,7 +32,8 @@ function App({}) {
         }).catch(err => console.log("Error occured"))
       climateStore.setCityList(data);
     }).catch(err => console.log("Error occured"))
-  })
+  }, [climateStore.filters])
+
   return (
     <ThemeProvider theme={theme}>
       <Navbar  />

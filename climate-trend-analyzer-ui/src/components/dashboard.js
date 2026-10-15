@@ -18,16 +18,21 @@ import CircularProgress from '@mui/material/CircularProgress';
 const Dashboard = observer(({  }) => {
 
     useEffect(() => {
-    }, [climateStore.dashboardData])
+      console.log(climateStore.dashboardData)
+      console.log(climateStore.filters)
+    }, [climateStore.dashboardData, climateStore.filters])
 
   return (
      <main className="container-fluid py-3 px-3 px-lg-4">
-       {(!climateStore.dashboardData || !climateStore.filters.cityData.city ) ? <Backdrop
+       {(!climateStore.dashboardData || !climateStore.filters.cityData.city || climateStore.loader ) ? 
+       <div style={{margin: '50%', textAlign:'center'}}
         sx={(theme) => ({ color: '#222020', zIndex: theme.zIndex.drawer + 1 })}   open={!climateStore.filters.cityData.city}
 
       >
         <CircularProgress color="#0f0e0e" />
-      </Backdrop> : <>
+      <div className='brand-accent'>Fetching Data...</div>
+
+      </div> : <>
     <section className="row g-3 mb-3">
      <div className="col-12">
         <header className="top-bar">
@@ -37,26 +42,30 @@ const Dashboard = observer(({  }) => {
       </div>
     </section>
  
- 
+     <section className="row g-3 mb-3">
+        <div className="col-12">
+          <h6>Select your inputs on the filter section</h6>
+        </div>
+      </section>
     <section className="row g-3 mb-3">
       <div className="col-12 col-md-4">
         <div className="stat-box">
           <label htmlFor="region" className="stat-box__label form-label">Geographic region</label>
-          <input type="text" id="region" name="region" className="stat-box__input form-control" readOnly 
+          <input type="text" id="region" name="region" className="stat-box__input form-control" readOnly disabled
           value={`${climateStore.filters.cityData.country}/${climateStore.filters.cityData.state}/${climateStore.filters.cityData.city}`} placeholder="Enter region"/>
         </div>
       </div>
       <div className="col-12 col-md-3">
         <div className="stat-box">
           <label htmlFor="hazard" className="stat-box__label form-label">Hazard type</label>
-          <input type="text" id="hazard" name="hazard" className="stat-box__input form-control" readOnly 
+          <input type="text" id="hazard" name="hazard" className="stat-box__input form-control" readOnly disabled
           value={HAZARDS.find((x) => climateStore.filters.hazardType == x.value)?.label} placeholder="Enter hazard type"/>
         </div>
       </div>
         <div className="col-12 col-md-4">
         <div className="stat-box">
           <label htmlFor="hazard" className="stat-box__label form-label">Latitude/Longitude</label>
-          <input type="text" id="hazard" name="hazard" className="stat-box__input form-control" readOnly 
+          <input type="text" id="hazard" name="hazard" className="stat-box__input form-control" readOnly disabled
           value={`${climateStore.filters.cityData.latitude}/${climateStore.filters.cityData.longitude}`} placeholder="Enter lat/long"/>
         </div>
       </div>

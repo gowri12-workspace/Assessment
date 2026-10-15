@@ -1,6 +1,6 @@
 import { Alert, Box, Button, Divider, Drawer, IconButton, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import { HAZARDS, localDate } from '../stores/ClimateStore';
+import { HAZARDS, localDate, defaultFiltersAfterReset } from '../stores/ClimateStore';
 import ClimateIcon from './ClimateIcon';
 import { useEffect, useState } from 'react';
 import { climateStore } from '../stores/ClimateStore';
@@ -31,17 +31,30 @@ const FilterSidebar = observer(({}) => {
         }).catch(err => console.log("Error occured"))
 
   }
-  // climateStore.setFilter(event.target.name, event.target.value);
 
-  useEffect(() => {
-    console.log(filters)
-    SetFilters({
-    cityData:  climateStore.filters.cityData,
-    hazardType:  climateStore.filters.hazardType,
-    startDate:  climateStore.filters.startDate,
-    endDate: climateStore.filters.endDate
-  })
-  }, [climateStore.filters])
+  const resetFilterData = () => {
+    let defaultValues = defaultFiltersAfterReset()
+    SetFilters(defaultValues)
+    climateStore.setFilter(defaultValues)
+    climateStore.setLoader(true)
+    fetch(`${process.env.REACT_APP_API_URL}/historicData/${defaultValues?.cityData?.city}/${defaultValues?.cityData?.latitude}/${defaultValues?.cityData?.longitude}/${defaultValues.hazardType}/${defaultValues.startDate}/${defaultValues.endDate}`)
+        .then((res) => res.json())
+        .then((record) => {
+          climateStore.setDashboardData(record)
+          climateStore.setLoader(false)
+        }).catch(err => console.log("Error occured"))
+  }
+
+  useEffect(() => { console.log(filters)})
+  // useEffect(() => {
+  //   console.log(filters)
+  //   SetFilters({
+  //     cityData:  climateStore.filters.cityData,
+  //     hazardType:  climateStore.filters.hazardType,
+  //     startDate:  climateStore.filters.startDate,
+  //     endDate: climateStore.filters.endDate
+  //   })
+  // }, [climateStore.filters])
 
   const content = (
     <Box component="aside" id="filter-sidebar" aria-labelledby="filter-heading" className="filter-sidebar">
@@ -50,7 +63,7 @@ const FilterSidebar = observer(({}) => {
         {!desktop && <IconButton aria-label="Close filters" onClick={() => climateStore.setSidebarOpen(false)}><ClimateIcon name="close" /></IconButton>}
       </div>
       <Divider sx={{ my: 1 }} />
-      <form noValidate onSubmit={(event) => { event.preventDefault(); getFilteredDataFromApi() }}>
+      <form noValidate onSubmit={(event) => { event.preventDefault();  climateStore.setSidebarOpen(false); getFilteredDataFromApi() }}>
         <fieldset>
           <label className="form-label" htmlFor="city">City</label>
           <select id="city" name="city" className="form-select" value={filters?.cityData?.city} 
@@ -69,21 +82,21 @@ const FilterSidebar = observer(({}) => {
         <Divider sx={{ my: 1 }} />
         <fieldset>
           <label className="form-label" htmlFor="startDate">Start date</label>
-          <DatePicker id="startDate" name="startDate" type="date" className="form-control mb-3" selected={filters?.startDate} max={climateStore.filters?.endDate} 
+          <DatePicker id="startDate" name="startDate" type="date" className="form-control mb-3" selected={filters?.startDate} maxDate={new Date("2026-10-10")} minDate={new Date("1990-01-01")} 
               onChange={e => SetFilters({...filters, startDate: new Date(e).toLocaleDateString('en-CA')})}
               aria-describedby={climateStore.validationError ? 'filter-error' : undefined} />
           </fieldset>
         <Divider sx={{ my: 1 }} />
         <fieldset>
           <label className="form-label" htmlFor="endDate">End date</label>
-          <DatePicker id="endDate" name="endDate" type="date" className="form-control" selected={filters?.endDate} min={climateStore.filters?.startDate} max={climateStore.filters.endDate} 
+          <DatePicker id="endDate" name="endDate" type="date" className="form-control" selected={filters?.endDate} maxDate={new Date("2026-10-10")} minDate={new Date("1990-01-01")}
               onChange={e => SetFilters({...filters, endDate: new Date(e).toLocaleDateString('en-CA')})}
               aria-describedby={climateStore.validationError ? 'filter-error' : undefined} />
         </fieldset>
         {climateStore.validationError && <Alert id="filter-error" severity="error" sx={{ mt: 2 }}>{climateStore.validationError}</Alert>}
         <Stack spacing={1.5} sx={{ mt: 4 }}>
           <Button type="submit" variant="contained" disableElevation disabled={Boolean(climateStore.validationError) || !climateStore.hasPendingChanges}>Apply filters</Button>
-          <Button type="button" variant="outlined" onClick={climateStore.resetFilters}>Reset filters</Button>
+          <Button type="button" variant="outlined" onClick={() => { climateStore.resetFilters(); resetFilterData()}}>Reset filters</Button>
         </Stack>
       </form>
     </Box>

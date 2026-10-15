@@ -11,10 +11,17 @@ export function localDate(date = new Date()) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
-function defaultFilters() {
+export function defaultFilters() {
   return {
     cityData: {}, hazardType: '1',
-    startDate: `1990-01-01`, endDate: `2000-10-10`,
+    startDate: `2015-01-01`, endDate: `2026-10-10`,
+  };
+}
+
+export function defaultFiltersAfterReset() {
+  return {
+    cityData: climateStore.cityList[0] ?? {}, hazardType: '1',
+    startDate: `2015-01-01`, endDate: `2026-10-10`,
   };
 }
 
@@ -54,12 +61,9 @@ class ClimateStore {
      this.loader = flag
   }
   setCityList(cityList) {
-    console.log("inside store", cityList)
     this.cityList = cityList
     let existingFilters = {...this.filters , cityData: cityList[0]}
-    console.log(existingFilters)
     this.filters = existingFilters
-    console.log(this.filters)
   }
 
   setDashboardData(data) {
@@ -74,16 +78,8 @@ class ClimateStore {
 
   setSidebarOpen(open) { this.sidebarOpen = open; }
 
-  applyFilters() {
-    if (this.validationError) return false;
-    this.appliedFilters = { ...this.filters };
-    this.sidebarOpen = false;
-    return true;
-  }
-
   resetFilters() {
-    this.filters = defaultFilters();
-    this.appliedFilters = null;
+    this.filters = {...defaultFilters(), cityData: this.cityList[0]}
   }
 }
 

@@ -1,4 +1,4 @@
-
+# APP is hosted in render. it goes down if there is no activity. Kindly try after 50 seconds if the page loads longer
 **Setup steps**
 > React - Clone the repository, npm install && npm start // need env values
 
